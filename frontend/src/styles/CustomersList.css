@@ -1,0 +1,157 @@
+.customers-list {
+  width: 100%;
+}
+
+.customers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.customers-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #1f2937;
+}
+
+.error-message {
+  background-color: #fee2e2;
+  border: 1px solid #fca5a5;
+  color: #991b1b;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s;
+  display: inline-block;
+}
+
+.btn.primary {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.btn.primary:hover {
+  background-color: #2563eb;
+}
+
+.customers-table {
+  width: 100%;
+  background: white;
+  border-collapse: collapse;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.customers-table thead {
+  background-color: #f3f4f6;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.customers-table th,
+.customers-table td {
+  padding: 1rem;
+  text-align: left;
+}
+
+.customers-table th {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.customers-table td {
+  border-bottom: 1px solid #e5e7eb;
+  color: #374151;
+}
+
+.customers-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+.link-btn:hover {
+  color: #2563eb;
+}
+
+.link-btn.delete {
+  color: #ef4444;
+}
+
+.link-btn.delete:hover {
+  color: #dc2626;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+}
+
+.btn-secondary {
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  background-color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.btn-secondary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .customers-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .customers-table {
+    font-size: 0.875rem;
+  }
+
+  .customers-table th,
+  .customers-table td {
+    padding: 0.5rem;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+  }
+}
