@@ -1,0 +1,53 @@
+# Build stage
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS builder
+
+WORKDIR /src
+
+# Copy project files
+COPY Api/CateringQuotes.Api.csproj ./Api/
+COPY Application/CateringQuotes.Application.csproj ./Application/
+COPY Domain/CateringQuotes.Domain.csproj ./Domain/
+COPY Infrastructure/CateringQuotes.Infrastructure.csproj ./Infrastructure/
+
+# Restore dependencies
+RUN dotnet restore Api/CateringQuotes.Api.csproj
+
+# Copy source code
+COPY Api ./Api
+COPY Application ./Application
+COPY Domain ./Domain
+COPY Infrastructure ./Infrastructure
+
+# Build application
+RUN dotnet build Api/CateringQuotes.Api.csproj -c Release -o /app/build
+
+# Publish
+RUN dotnet publish Api/CateringQuotes.Api.csproj -c Release -o /app/publish
+
+# Runtime stage
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine
+
+WORKDIR /app
+
+# Install curl for health checks
+RUN apk add --no-cache curl
+
+# Copy published application
+COPY --from=builder /app/publish .
+
+# Create logs directory
+RUN mkdir -p /app/logs && chmod 777 /app/logs
+
+# Expose ports
+EXPOSE 5000 5001
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD curl -f http://localhost:5000/health || exit 1
+
+# Set environment
+ENV ASPNETCORE_URLS=http://+:5000;https://+:5001 \
+    ASPNETCORE_ENVIRONMENT=Production
+
+# Run application
+ENTRYPOINT ["dotnet", "CateringQuotes.Api.dll"]

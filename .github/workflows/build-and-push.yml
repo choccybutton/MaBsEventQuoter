@@ -1,0 +1,93 @@
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+
+jobs:
+  build-api:
+    name: Build API Docker Image
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Determine image tag
+        id: meta
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            echo "tag=$(echo ${{ github.ref }} | sed 's#refs/tags/##')" >> $GITHUB_OUTPUT
+          else
+            echo "tag=latest" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build API image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./backend
+          file: ./deploy/Dockerfile.api
+          push: false
+          tags: catering-quotes-api:${{ steps.meta.outputs.tag }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Display build info
+        run: |
+          echo "API Docker image would be tagged as:"
+          echo "  catering-quotes-api:${{ steps.meta.outputs.tag }}"
+          echo ""
+          echo "To push to registry, configure:"
+          echo "  1. Docker registry credentials in secrets"
+          echo "  2. Update docker/login-action in workflow"
+          echo "  3. Add push: true to docker/build-push-action"
+
+  build-frontend:
+    name: Build Frontend Docker Image
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Determine image tag
+        id: meta
+        run: |
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            echo "tag=$(echo ${{ github.ref }} | sed 's#refs/tags/##')" >> $GITHUB_OUTPUT
+          else
+            echo "tag=latest" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build Frontend image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./frontend
+          file: ./deploy/Dockerfile.frontend
+          push: false
+          tags: catering-quotes-frontend:${{ steps.meta.outputs.tag }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Display build info
+        run: |
+          echo "Frontend Docker image would be tagged as:"
+          echo "  catering-quotes-frontend:${{ steps.meta.outputs.tag }}"
+          echo ""
+          echo "To push to registry, configure:"
+          echo "  1. Docker registry credentials in secrets"
+          echo "  2. Update docker/login-action in workflow"
+          echo "  3. Add push: true to docker/build-push-action"

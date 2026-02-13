@@ -1,0 +1,134 @@
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  color: #1f2937;
+}
+
+.app-header p {
+  margin: 10px 0 0 0;
+  color: #6b7280;
+  font-size: 1.1rem;
+}
+
+.app-main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+section {
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background-color: #f9fafb;
+}
+
+section h2 {
+  margin-top: 0;
+  color: #1f2937;
+  border-bottom: 2px solid #3b82f6;
+  padding-bottom: 10px;
+}
+
+.status {
+  padding: 20px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.status.connected {
+  background-color: #ecfdf5;
+  border: 1px solid #86efac;
+}
+
+.status.disconnected {
+  background-color: #fef2f2;
+  border: 1px solid #fca5a5;
+}
+
+.status-message {
+  margin: 0 0 10px 0;
+  font-weight: 500;
+}
+
+.status-indicator {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.status.connected .status-indicator {
+  color: #059669;
+}
+
+.status.disconnected .status-indicator {
+  color: #dc2626;
+}
+
+.info-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-section li {
+  padding: 8px 0;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.info-section li:last-child {
+  border-bottom: none;
+}
+
+.info-section li::before {
+  content: '→ ';
+  color: #3b82f6;
+  margin-right: 8px;
+}
+
+.env-section dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 10px;
+}
+
+.env-section dt {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.env-section dd {
+  margin: 0;
+  color: #6b7280;
+  font-family: monospace;
+  word-break: break-all;
+}
+
+@media (max-width: 768px) {
+  .app {
+    padding: 15px;
+  }
+
+  .app-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .app-main {
+    grid-template-columns: 1fr;
+  }
+}
