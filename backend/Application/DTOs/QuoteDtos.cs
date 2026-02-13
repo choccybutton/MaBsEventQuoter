@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace CateringQuotes.Application.DTOs;
 
 /// <summary>
@@ -21,11 +23,20 @@ public class QuoteLineItemDto
 /// </summary>
 public class CreateQuoteDto
 {
+    [Range(1, int.MaxValue, ErrorMessage = "Customer ID must be greater than 0")]
     public int CustomerId { get; set; }
+
     public DateTime? EventDate { get; set; }
+
+    [Range(0, 1, ErrorMessage = "VAT rate must be between 0 and 1")]
     public decimal? VatRate { get; set; }
+
+    [Range(0, double.MaxValue, ErrorMessage = "Markup percentage must be greater than or equal to 0")]
     public decimal? MarkupPercentage { get; set; }
+
+    [StringLength(1000, ErrorMessage = "Notes must not exceed 1000 characters")]
     public string? Notes { get; set; }
+
     public List<CreateQuoteLineItemDto> LineItems { get; set; } = new();
 }
 
@@ -34,10 +45,20 @@ public class CreateQuoteDto
 /// </summary>
 public class CreateQuoteLineItemDto
 {
+    [Range(1, int.MaxValue, ErrorMessage = "Food item ID must be greater than 0")]
     public int FoodItemId { get; set; }
+
+    [Required(ErrorMessage = "Description is required")]
+    [StringLength(255, ErrorMessage = "Description must not exceed 255 characters")]
     public string Description { get; set; } = null!;
+
+    [Range(1, int.MaxValue, ErrorMessage = "Quantity must be greater than 0")]
     public int Quantity { get; set; }
+
+    [Range(0, double.MaxValue, ErrorMessage = "Unit cost must be greater than or equal to 0")]
     public decimal UnitCost { get; set; }
+
+    [Range(0, int.MaxValue, ErrorMessage = "Display order must be greater than or equal to 0")]
     public int DisplayOrder { get; set; }
 }
 
@@ -47,9 +68,16 @@ public class CreateQuoteLineItemDto
 public class UpdateQuoteDto
 {
     public DateTime? EventDate { get; set; }
+
+    [Range(0, 1, ErrorMessage = "VAT rate must be between 0 and 1")]
     public decimal? VatRate { get; set; }
+
+    [Range(0, double.MaxValue, ErrorMessage = "Markup percentage must be greater than or equal to 0")]
     public decimal? MarkupPercentage { get; set; }
+
+    [StringLength(1000, ErrorMessage = "Notes must not exceed 1000 characters")]
     public string? Notes { get; set; }
+
     public List<CreateQuoteLineItemDto>? LineItems { get; set; }
 }
 
@@ -82,6 +110,8 @@ public class QuoteDto
 /// </summary>
 public class SendQuoteDto
 {
+    [Required(ErrorMessage = "Email is required")]
+    [EmailAddress(ErrorMessage = "Email format is invalid")]
     public string Email { get; set; } = null!;
 }
 

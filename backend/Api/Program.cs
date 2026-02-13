@@ -1,4 +1,5 @@
 using Serilog;
+using CateringQuotes.Api.Middleware;
 using CateringQuotes.Application;
 using CateringQuotes.Infrastructure;
 using CateringQuotes.Infrastructure.Data;
@@ -83,6 +84,9 @@ if (app.Environment.IsDevelopment())
 }
 
 // Configure pipeline
+// Exception handling middleware (must be early in the pipeline)
+app.UseExceptionHandlingMiddleware();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

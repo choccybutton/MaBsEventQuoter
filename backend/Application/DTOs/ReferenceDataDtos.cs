@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace CateringQuotes.Application.DTOs;
 
 /// <summary>
@@ -43,9 +45,16 @@ public class AppSettingsDto
 /// </summary>
 public class UpdateAppSettingsDto
 {
+    [Range(0, 1, ErrorMessage = "Default VAT rate must be between 0 and 1")]
     public decimal? DefaultVatRate { get; set; }
+
+    [Range(0, double.MaxValue, ErrorMessage = "Default markup percentage must be greater than or equal to 0")]
     public decimal? DefaultMarkupPercentage { get; set; }
+
+    [Range(0, 1, ErrorMessage = "Margin green threshold must be between 0 and 1")]
     public decimal? MarginGreenThresholdPct { get; set; }
+
+    [Range(0, 1, ErrorMessage = "Margin amber threshold must be between 0 and 1")]
     public decimal? MarginAmberThresholdPct { get; set; }
 }
 
