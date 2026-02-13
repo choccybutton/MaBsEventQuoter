@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting" Version="8.0.0" />
     <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="8.0.0" />
+    <PackageReference Include="Aspire.Hosting.NodeJS" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
