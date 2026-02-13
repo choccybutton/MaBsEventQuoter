@@ -1,4 +1,5 @@
 using Serilog;
+using CateringQuotes.Application;
 using CateringQuotes.Infrastructure;
 using CateringQuotes.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,9 @@ builder.Host.UseSerilog((context, config) =>
 
 // Add services
 builder.Services.AddControllers();
+
+// Application services
+builder.Services.AddApplication();
 
 // Infrastructure services
 builder.Services.AddInfrastructure(builder.Configuration);

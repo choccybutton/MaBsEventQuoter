@@ -1,4 +1,6 @@
+using CateringQuotes.Application.Repositories;
 using CateringQuotes.Infrastructure.Data;
+using CateringQuotes.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +23,10 @@ public static class DependencyInjection
             {
                 npgsqlOptions.MigrationsAssembly(typeof(CateringQuotesDbContext).Assembly.FullName);
             }));
+
+        // Repositories
+        services.AddScoped<IQuoteRepository, QuoteRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
 
         return services;
     }
