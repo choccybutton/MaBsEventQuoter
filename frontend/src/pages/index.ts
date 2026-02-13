@@ -1,5 +1,7 @@
 export * from './Dashboard'
 export * from './QuotesList'
 export * from './QuoteDetail'
+export * from './QuoteForm'
 export * from './CustomersList'
 export * from './FoodItemsList'
+export * from './Settings'

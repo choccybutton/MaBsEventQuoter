@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
-import { Dashboard, QuotesList, QuoteDetail, CustomersList, FoodItemsList } from './pages'
+import { Dashboard, QuotesList, QuoteDetail, QuoteForm, CustomersList, FoodItemsList, Settings } from './pages'
 import './App.css'
 
 function App() {
@@ -23,6 +23,9 @@ function App() {
             <li>
               <Link to="/food-items">Food Items</Link>
             </li>
+            <li>
+              <Link to="/settings">Settings</Link>
+            </li>
           </ul>
         </nav>
 
@@ -30,9 +33,12 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/quotes" element={<QuotesList />} />
+            <Route path="/quotes/new" element={<QuoteForm />} />
             <Route path="/quotes/:id" element={<QuoteDetail />} />
+            <Route path="/quotes/:id/edit" element={<QuoteForm />} />
             <Route path="/customers" element={<CustomersList />} />
             <Route path="/food-items" element={<FoodItemsList />} />
+            <Route path="/settings" element={<Settings />} />
           </Routes>
         </main>
       </div>
